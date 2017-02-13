@@ -50,12 +50,14 @@ func main() {
 		if len(b2) == 0 {
 			continue
 		}
+		b2 = append(b2, byte('\n'))
 		js = append(js, b2...)
 	}
 
 	cmd := exec.Command("java", "-jar", "S:\\compiler-latest\\closure-compiler-v20161201.jar",
 		"--compilation_level", levelList[level],
 	)
+	cmd.Stderr = os.Stderr
 	// 入出力のパイプを取得
 	cmdin, _ := cmd.StdinPipe()
 	defer cmdin.Close()
